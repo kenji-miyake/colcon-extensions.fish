@@ -24,7 +24,7 @@ brew install fd
 ### Using fisher (recommended)
 
 ```sh
-fisher add kenji-miyake/colcon-clean.fish
+fisher install kenji-miyake/colcon-clean.fish
 ```
 
 ### Using local-install script (for development)
