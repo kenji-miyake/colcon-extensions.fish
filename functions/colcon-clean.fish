@@ -14,8 +14,8 @@ function colcon-clean
     # Check package name is given
     set -l package_name $argv[1]
     if [ "$package_name" = "" ]
-        set -q _flag_yes && set force_clean true || set force_clean false
-        clean_all $force_clean
+        set -q _flag_yes && set force true || set force false
+        clean_all $force
     else
         clean_packages $argv
     end
@@ -32,10 +32,10 @@ function read_confirm
 end
 
 function clean_all
-    set -l force_clean $argv[1]
+    set -l force $argv[1]
     set -l workspace_dir (__colcon_get_workspace_dir)
 
-    set msgs "[clean] Warning: This will completely remove the following directories. (Use `--yes` to skip this check)"
+    set msgs "[clean] Warning: This will completely remove the following directories. (Use `--yes` to skip this check.)"
     set target_dirs
 
     if [ -d "$workspace_dir/log/" ]
@@ -54,7 +54,7 @@ function clean_all
     end
 
     if [ "$target_dirs" = "" ]
-        echo "[clean] Nothing to be cleaned"
+        echo "[clean] Nothing to be cleaned."
         return 0
     end
 
@@ -62,13 +62,13 @@ function clean_all
         echo -e $msg
     end
 
-    if $force_clean || read_confirm
+    if $force || read_confirm
         for target_dir in $target_dirs
-            echo "Removing $target_dir"
+            echo "Removing $target_dir."
             rm -rf $target_dir
         end
     else
-        echo "[clean] Not removing any workspace directories for this profile."
+        echo "[clean] Canceled."
     end
 end
 
@@ -81,7 +81,7 @@ function clean_packages
             echo "[clean] $package_name"
             rm -rf $workspace_dir/build/$package_name $workspace_dir/install/$package_name
         else
-            echo "[clean] There are no products from the given packages to clean."
+            echo "[clean] Nothing to be cleaned from the package '$package_name'."
         end
     end
 end
