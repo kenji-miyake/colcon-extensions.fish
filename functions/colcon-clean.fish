@@ -1,7 +1,7 @@
 # Console messages were written with reference to https://github.com/catkin/catkin_tools
 function colcon-clean
     # Parse arguments
-    set -l options "y/yes"
+    set -l options y/yes
     argparse $options -- $argv || return 1
 
     # Find workspace directory
@@ -43,12 +43,12 @@ function clean_all
         set target_dirs $target_dirs "$workspace_dir/log"
     end
 
-    if [ -d "$workspace_dir/log/" ]
+    if [ -d "$workspace_dir/build/" ]
         set msgs $msgs "[clean] Build Space:   $workspace_dir/build"
         set target_dirs $target_dirs "$workspace_dir/build"
     end
 
-    if [ -d "$workspace_dir/log/" ]
+    if [ -d "$workspace_dir/install/" ]
         set msgs $msgs "[clean] Install Space: $workspace_dir/install"
         set target_dirs $target_dirs "$workspace_dir/install"
     end
