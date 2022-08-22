@@ -46,3 +46,12 @@ cd {colcon_workspace_dir}
 colcon-clean {package_name_1} {package_name_2} # To delete selected packages
 colcon-clean # To delete whole build artifacts
 ```
+
+### colcon-fix
+
+This command deletes old build artifacts that the corresponding source directory doesn't exist anymore.
+
+```fish
+cd {colcon_workspace_dir}
+colcon-fix
+```
